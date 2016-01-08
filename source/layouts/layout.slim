@@ -8,44 +8,46 @@ html
       meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"
 
     title = "space.fail#{ ' - ' + current_article.title unless current_article.nil?}"
-    = feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed"
+    /= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed"
 
-    link href='https://fonts.googleapis.com/css?family=Raleway:400,700|Anonymous+Pro:400,700,400italic,700italic&subset=latin,greek' rel='stylesheet' type='text/css'
+    / link href='https://fonts.googleapis.com/css?family=Raleway:400,700|Anonymous+Pro:400,700,400italic,700italic&subset=latin,greek' rel='stylesheet' type='text/css'
 
-    = stylesheet_link_tag :site
-    = javascript_include_tag :all
+    /= stylesheet_link_tag :site
+    /= javascript_include_tag :all
+
+    scss:
+      html, body {
+        height: 100%;
+        background-color: #000;
+      }
+
+      div {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      span {
+        color: #eee;
+        font-family: Helvetica, Arial, sans-serif;
+        letter-spacing: 2px;
+        display: block;
+        max-width: 50%;
+      }
 
   body class=page_classes
-
-    .page-wrapper
-      .site-header-container
-        header.site-header
-          h1 space.fail
-          h2 pushing for scientific accuracy in film, tv, the written word, and beyond
-
-      .site-content-container
-        .site-content
-          main#main role="main"
-            = yield
-
-          aside.site-aside
-            h2 Recent Articles
-            ol
-              - blog.articles[0...10].each do |article|
-                li
-                  => link_to article.title, article
-                  span = article.date.strftime('%b %e')
-
-            h2 Tags
-            ol
-              - blog.tags.each do |tag, articles|
-                li = link_to "#{tag} (#{articles.size})", tag_path(tag)
-
-            h2 By Year
-            ol
-              - blog.articles.group_by {|a| a.date.year }.each do |year, articles|
-                li = link_to "#{year} (#{articles.size})", blog_year_path(year)
-
-    .site-footer-container
-      footer.site-footer
-        p &copy; 2016 GCV Space Science, LLC. Content licensed under Creative Commons Attribution-ShareAlike 4.0 International Public License.
+    div
+      = yield
