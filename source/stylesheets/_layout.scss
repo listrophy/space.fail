@@ -1,0 +1,36 @@
+$page-container-width: 920px;
+
+@mixin page-container {
+  max-width: $page-container-width;
+  margin: 0 auto;
+}
+
+.site-header {
+  > * {
+    @include page-container;
+  }
+}
+
+.site-content, .site-footer, .site-header {
+  @include page-container;
+}
+
+.site-content {
+  @include display(flex);
+  @include flex-wrap(wrap);
+
+  margin-top: 2rem;
+}
+
+#main {
+  @include flex-grow(3);
+  @include flex-shrink(1);
+  @include flex-basis(220px);
+}
+
+.site-aside {
+  @include media(">phone") { margin-left: 2rem; }
+  @include flex-grow(1);
+  @include flex-shrink(1);
+  @include flex-basis(200px);
+}
